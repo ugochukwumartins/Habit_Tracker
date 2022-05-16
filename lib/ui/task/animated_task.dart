@@ -21,6 +21,9 @@ class _AnimatedTaskState extends State<AnimatedTask>
       vsync: this,
       duration: Duration(milliseconds: 750),
     );
+
+    _animatedController.forward();
+    // _animatedController.reverse();
   }
 
   @override
@@ -31,6 +34,12 @@ class _AnimatedTaskState extends State<AnimatedTask>
 
   @override
   Widget build(BuildContext context) {
-    return TaskCompletionRing(progress: 0.6);
+    return AnimatedBuilder(
+        animation: _animatedController,
+        builder: (context, child) {
+          return TaskCompletionRing(
+            progress: _animatedController.value,
+          );
+        });
   }
 }
